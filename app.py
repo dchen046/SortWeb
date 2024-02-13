@@ -8,10 +8,6 @@ app = flask.Flask(__name__)
 def home():
     return flask.render_template("index.html")
 
-@app.route("/gendata")
-def gendata():
-    return flask.render_template("index.html")
-
 @app.route("/script")
 def get_script():
     with open(file=os.path.join(os.environ["SORT_WEB_ROOT"], "scripts", "button_scripts.js"), mode="rt") as file:

@@ -2,7 +2,7 @@ const gen_data = () => {
     const size = 100;
     const num_array = new Array(size);
     for (let i = 0; i < size; ++i) {
-        num_array[i] = i;
+        num_array[i] = i+size;
     }
 
     for (let i = size - 1; i > 0; --i) {
@@ -14,10 +14,14 @@ const gen_data = () => {
 
     const width = 1 / (size * 2) * 100;
     const dataset_elem = document.getElementById("dataset");
+    while (!(dataset_elem.lastChild === null)) {
+        dataset_elem.removeChild(dataset_elem.lastChild);
+    }
+
     const elem_styles = [
         "background-color: powderblue", 
-        "Width: " + width + '%']
-
+        "Width: " + width + '%',
+    ];
 
     for (const num0 of num_array) {
         for (const num of [num0, 0]) {
