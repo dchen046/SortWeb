@@ -1,5 +1,5 @@
 // global variables
-const size = 200;
+const size = 150;
 const num_array = new Array(size);
 let frames = new Array();
 const delay = 100 / size;
@@ -122,7 +122,6 @@ const quick_sort_btn = () => {
     else {
         alert("Data is sorted");
     }
-
 };
 
 const quick_sort = (array, i, j) => {
@@ -152,4 +151,28 @@ const swap = (array, i, j) => {
     const temp = array[i];
     array[i] = array[j];
     array[j] = temp;
+};
+
+
+// bubble sort button
+const bubble_sort_btn = () => {
+    bubble_sort();
+    sort_animate();
+};
+
+const bubble_sort = () => {
+    for (let i = 0; i < num_array.length - 1; ++i) {
+        let swapped = false;
+        for (let j = 0; j < num_array.length - i - 1; ++j) {
+            if (num_array[j] > num_array[j+1]) {
+                swap(num_array, j, j+1);
+                frames.push(num_array.slice(0));
+                swapped = true;
+            }
+        }
+
+        if (!swapped) {
+            break;
+        }
+    }
 };
