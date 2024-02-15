@@ -117,7 +117,6 @@ const quick_sort_btn = () => {
     if (!sorted) {
         quick_sort(num_array, 0, num_array.length);
         sort_animate();
-        console.log(sorted);
     }
     else {
         alert("Data is sorted");
@@ -143,8 +142,8 @@ const partition = (array, left, right) => {
             ++i;
         }
     }
-    swap(array, left, i-1)
-    return i-1;
+    swap(array, left, i - 1)
+    return i - 1;
 };
 
 const swap = (array, i, j) => {
@@ -156,16 +155,21 @@ const swap = (array, i, j) => {
 
 // bubble sort button
 const bubble_sort_btn = () => {
-    bubble_sort();
-    sort_animate();
+    if (!sorted) {
+        bubble_sort();
+        sort_animate();
+    } else {
+        alert("Data is sorted");
+    }
+    
 };
 
 const bubble_sort = () => {
     for (let i = 0; i < num_array.length - 1; ++i) {
         let swapped = false;
         for (let j = 0; j < num_array.length - i - 1; ++j) {
-            if (num_array[j] > num_array[j+1]) {
-                swap(num_array, j, j+1);
+            if (num_array[j] > num_array[j + 1]) {
+                swap(num_array, j, j + 1);
                 frames.push(num_array.slice(0));
                 swapped = true;
             }
@@ -175,4 +179,32 @@ const bubble_sort = () => {
             break;
         }
     }
+};
+
+//insertion sort button
+const insertion_sort_btn = () => {
+    if (!sorted) {
+        insertion_sort();
+        sort_animate();
+    } else {
+        alert("Data is sorted");
+    }
+};
+
+const insertion_sort = () => {
+    for (let i = 1; i < num_array.length; ++i){
+        insert(i);
+    }
+};
+
+const insert = (index) => {
+    let val = num_array[index];
+    let i = index - 1;
+    for (; (i >= 0 && num_array[i] > val); --i) {
+        // shift values down
+        num_array[i + 1] = num_array[i];
+        frames.push(num_array.slice(0));
+    }
+    num_array[i + 1] = val;
+    frames.push(num_array.slice(0));
 };
