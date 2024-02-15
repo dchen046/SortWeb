@@ -1,5 +1,5 @@
 // global variables
-const size = 150;
+const size = 100;
 const num_array = new Array(size);
 let frames = new Array();
 const delay = 100 / size;
@@ -207,4 +207,29 @@ const insert = (index) => {
     }
     num_array[i + 1] = val;
     frames.push(num_array.slice(0));
+};
+
+
+// selection sort button
+const selection_sort_btn = () => {
+    if (!sorted) {
+        selection_sort();
+        sort_animate();
+    } else {
+        alert("Data is sorted");
+    }
+};
+
+const selection_sort = () => {
+    for (let i = 0; i < num_array.length; ++i) {
+        let min_i = i;
+        // find minimum of right side
+        for (let j = min_i + 1; j < num_array.length; ++j) {
+            if (num_array[min_i] > num_array[j]) {
+                min_i = j;
+            }
+        }
+        swap(num_array, i, min_i)
+        frames.push(num_array.slice(0));
+    }
 };
