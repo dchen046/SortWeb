@@ -1,8 +1,8 @@
 // global variables
-const size = 100;
+const size = 200;
 const num_array = new Array(size);
-const frames = new Array();
-const delay = 10;
+let frames = new Array();
+const delay = 100 / size;
 let sorted = false;
 
 const animate = (num_array) => {
@@ -41,29 +41,34 @@ const gen_data = () => {
         num_array[i] = num_array[pos];
         num_array[pos] = temp;
     }
+    // reset global values
     sorted = false;
+    frames = [];
     animate(num_array);
+};
+
+const sleeper = (i) => {
+    if (i < frames.length) {
+        animate(frames[i]);
+        setTimeout(sleeper, delay, ++i);
+    } else {
+        alert("Sort Successful");
+    }
+};
+
+const sort_animate = () => {
+    let i = 0;
+    if (i < frames.length) {
+        sleeper(i);
+        sorted = true;
+    }
 };
 
 // merge sort button
 const merge_sort_btn = () => {
     if (!sorted) {
         merge_sort(num_array, 0, num_array.length - 1);
-
-        const sleeper = (i) => {
-            if (i < frames.length) {
-                animate(frames[i]);
-                setTimeout(sleeper, delay, ++i);
-            } else {
-                alert("Merge Sort Successful");
-            }
-        };
-
-        let i = 0;
-        if (i < frames.length) {
-            sleeper(i);
-            sorted = true;
-        }
+        sort_animate();
     } else {
         alert("Data Already Sorted");
     }
@@ -104,4 +109,47 @@ const merge_sort = (array, left, right) => {
         merge_sort(array, half + 1, right);
         merge(array, left, half, right);
     }
+};
+
+
+// quick sort button
+const quick_sort_btn = () => {
+    if (!sorted) {
+        quick_sort(num_array, 0, num_array.length);
+        sort_animate();
+        console.log(sorted);
+    }
+    else {
+        alert("Data is sorted");
+    }
+
+};
+
+const quick_sort = (array, i, j) => {
+    if (i < j) {
+        pivot = partition(array, i, j);
+        quick_sort(array, i, pivot - 1);
+        quick_sort(array, pivot + 1, j);
+    }
+};
+
+const partition = (array, left, right) => {
+    const pivot = array[left];
+    let i = left + 1;
+    for (let j = left + 1; j <= right; ++j) {
+        if (array[j] < pivot) {
+            swap(array, j, i);
+            // take note of every time a swap happens
+            frames.push(array.slice(0));
+            ++i;
+        }
+    }
+    swap(array, left, i-1)
+    return i-1;
+};
+
+const swap = (array, i, j) => {
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
 };
